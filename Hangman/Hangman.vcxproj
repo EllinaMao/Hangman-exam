@@ -127,7 +127,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Decript.cpp" />
     <ClCompile Include="game.cpp" />
+    <ClCompile Include="WordsList.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Decript.h" />
+    <ClInclude Include="WordsList.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

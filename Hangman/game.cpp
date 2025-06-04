@@ -52,55 +52,20 @@ void drawHangman(int wrongGuesses) {
     }
 };
 
-string caesarEncrypt(const string& word, int shift = 3) {
-    string encrypted = word;
-    for (char& c : encrypted) {
-        if (isalpha(c)) {
-            char base = islower(c) ? 'a' : 'A';
-            c = (c - base + shift) % 26 + base;
-        }
-    }
-    return encrypted;
-}
-void saveWordsToJson(const std::vector<std::string>& words, const std::string& filename) {
-    json j;
-    j["words"] = words;
-    std::ofstream file(filename);
-    if (file.is_open()) {
-        file << j.dump(4); // 4 — для красивого форматирования
-        file.close();
-    }
-}
 
 int main()
 {
 
+    string encryptedWords = "words.json";
 	cout << "Welcome to the Hangman Game!" << endl;
 	cout << "You will have to guess the word by suggesting letters." << endl;
 	cout << "You have a limited number of attempts." << endl;
 	cout << "Let's start!" << endl;
 
-    vector<string> words = {
-    "apple", "banana", "cherry", "date", "elderberry", "fig", "grape", "honeydew",
-    "kiwi", "lemon", "mango", "nectarine", "orange", "papaya", "quince", "raspberry",
-    "strawberry", "tangerine", "ugli", "vanilla", "watermelon", "xigua", "yam", "zucchini",
-    "avocado", "blueberry", "coconut", "dragonfruit", "eggplant", "feijoa", "guava", "hazelnut",
-    "iceberg", "jackfruit", "kumquat", "lime", "mulberry", "nutmeg", "olive", "peach",
-    "plum", "radish", "spinach", "tomato", "turnip", "walnut", "apricot", "broccoli",
-    "carrot", "daikon", "endive", "fennel", "garlic", "horseradish", "jalapeno", "kale",
-    "lettuce", "mustard", "onion", "parsnip", "quinoa", "rutabaga", "shallot", "truffle",
-    "ugli", "vinegar", "wasabi", "yam", "zest", "almond", "basil", "cabbage", "dill",
-    "escarole", "flax", "ginger", "hops", "iceberg", "jicama", "kelp", "leek",
-    "mint", "nut", "oregano", "pepper", "quiche", "rosemary", "sage", "thyme",
-    "upland", "vanilla", "watercress", "xanthan", "yeast", "zatar", "anchor", "bridge",
-    "castle", "dragon", "engine", "forest", "giant", "harbor", "island", "jungle",
-    "knight", "labyrinth", "mountain", "nebula", "ocean", "palace", "quarry", "river",
-    "ship", "tower", "unicorn", "valley", "wizard", "xylophone", "yacht", "zeppelin"
-    };
-
+    
 	// Here you would typically load the word list from a file, decrypt it, and start the game logic.
 
-	saveWordsToJson({words}, "words.json");
+
 
 
 
