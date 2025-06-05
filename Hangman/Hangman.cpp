@@ -58,7 +58,9 @@ void HangmanGame::gameOver()
 	}
 	else {
 	cout << "Game Over!" << endl
-		 << "The word was: " << currentWord << endl;
+		 << "You ran out of attempts!" << endl
+		 << "The word was: " << currentWord << endl
+		 << "Your guesses was: " << guessedLetters << endl;
 	}
 	displayStatistics();
 }
