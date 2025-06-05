@@ -23,7 +23,7 @@ private:
 	static size_t gameTries;
 	vector<string> hangman;
 
-	void updateHangmanDisplay() const;
+	void updateHangmanDisplay();
 	void resetHangmanDisplay();
 protected:
 	std::string getCurrentWord() const { return currentWord; }

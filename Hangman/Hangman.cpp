@@ -4,7 +4,7 @@ using namespace std;
 
 size_t HangmanGame::gameTries = 0;  
 
-void HangmanGame::updateHangmanDisplay() const
+void HangmanGame::updateHangmanDisplay()
 {	// Add parts based on wrongGuesses
 	if (attemptsLeft > 6) hangman[2][2] = 'O';         // Head
 	else if (attemptsLeft > 5) hangman[3][2] = '|';         // Body
