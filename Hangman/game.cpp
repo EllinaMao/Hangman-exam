@@ -22,39 +22,42 @@
 #include <iterator>
 #include <fstream>
 #include <string>
+#include <chrono>
 //#include <nlohmann/json.hpp>
+#include "Hangman.h"
+#include "WordsList.h"
+#include "Decript.h"
+#include "InputIO.h"
+
 using namespace std;
 
 //using json = nlohmann::json;
 
-void drawHangman(int wrongGuesses) {
-    // Base
-    vector<string> hangman = {
-        "  +---+",
-        "      |",
-        "      |",
-        "      |",
-        "      |",
-        "      |",
-        "========="
-    };
-
-
 
 int main()
 {
-
     string encryptedWords = "words.json";
-	cout << "Welcome to the Hangman Game!" << endl;
-	cout << "You will have to guess the word by suggesting letters." << endl;
-	cout << "You have a limited number of attempts." << endl;
-	cout << "Let's start!" << endl;
-
-    
-	// Here you would typically load the word list from a file, decrypt it, and start the game logic.
-
-
-
-
-
+	WordsList wordsList(encryptedWords);
+	
+	HangmanGame game(wordsList);
+	while (true) {
+	game.startGame();
+	while (!game.isGameOver() && !game.isWordGuessed()) {
+		system("pause");
+		system("cls");
+		game.displayHangman();
+		game.displayCurrentState();
+		cout << "Enter a letter: ";
+		char letter = InputIO::GetCh();
+		game.guessLetter(letter);
+	}
+	game.gameOver();
+	game.displayStatistics();
+	cout << "Do you want to play again? (y/n): ";
+	char choice = InputIO::GetCh();
+	if (choice == 'n' || choice == 'N') {
+		cout << "Thank you for playing!" << endl;
+		break;
+	}
+	game.resetGame(wordsList);
 }

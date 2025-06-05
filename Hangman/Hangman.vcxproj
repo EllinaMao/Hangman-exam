@@ -135,7 +135,7 @@
   <ItemGroup>
     <ClInclude Include="Decript.h" />
     <ClInclude Include="Hangman.h" />
-    <ClInclude Include="Player.h" />
+    <ClInclude Include="InputIO.h" />
     <ClInclude Include="WordsList.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
