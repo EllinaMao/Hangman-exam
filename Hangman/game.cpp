@@ -22,51 +22,42 @@
 #include <iterator>
 #include <fstream>
 #include <string>
-#include <nlohmann/json.hpp>
+#include <chrono>
+//#include <nlohmann/json.hpp>
+#include "Hangman.h"
+#include "WordsList.h"
+#include "Decript.h"
+#include "InputIO.h"
+
 using namespace std;
 
-using json = nlohmann::json;
-
-void drawHangman(int wrongGuesses) {
-    // Base
-    vector<string> hangman = {
-        "  +---+",
-        "  |   |",
-        "      |",
-        "      |",
-        "      |",
-        "      |",
-        "========="
-    };
-
-    // Add parts based on wrongGuesses
-    if (wrongGuesses > 0) hangman[2][2] = 'O';         // Head
-    if (wrongGuesses > 1) hangman[3][2] = '|';         // Body
-    if (wrongGuesses > 2) hangman[3][1] = '/';         // Left arm
-    if (wrongGuesses > 3) hangman[3][3] = '\\';        // Right arm
-    if (wrongGuesses > 4) hangman[4][1] = '/';         // Left leg
-    if (wrongGuesses > 5) hangman[4][3] = '\\';        // Right leg
-
-    for (auto it = hangman.begin(); it != hangman.end(); ++it) {
-        cout << *it << endl;
-    }
-};
+//using json = nlohmann::json;
 
 
 int main()
 {
-
     string encryptedWords = "words.json";
-	cout << "Welcome to the Hangman Game!" << endl;
-	cout << "You will have to guess the word by suggesting letters." << endl;
-	cout << "You have a limited number of attempts." << endl;
-	cout << "Let's start!" << endl;
-
-    
-	// Here you would typically load the word list from a file, decrypt it, and start the game logic.
-
-
-
-
-
+	WordsList wordsList(encryptedWords);
+	
+	HangmanGame game(wordsList);
+	while (true) {
+	game.startGame();
+	while (!game.isGameOver() && !game.isWordGuessed()) {
+		system("pause");
+		system("cls");
+		game.displayHangman();
+		game.displayCurrentState();
+		cout << "Enter a letter: ";
+		char letter = InputIO::GetCh();
+		game.guessLetter(letter);
+	}
+	game.gameOver();
+	game.displayStatistics();
+	cout << "Do you want to play again? (y/n): ";
+	char choice = InputIO::GetCh();
+	if (choice == 'n' || choice == 'N') {
+		cout << "Thank you for playing!" << endl;
+		break;
+	}
+	game.resetGame(wordsList);
 }

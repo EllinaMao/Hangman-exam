@@ -4,11 +4,18 @@
 #include <iterator>
 #include <fstream>
 #include <string>
-#include <nlohmann/json.hpp>
+#include <random>
+//#include <nlohmann/json.hpp>
 #include "Decript.h"
 
-using json = nlohmann::json;
+//using json = nlohmann::json;
 
+
+/*
+	WordsList
+•	Отвечает только за хранение и управление списком слов (Single Responsibility).
+•	Методы: загрузка, добавление, получение случайного слова.
+*/
 class WordsList {
 	private:
 		std::vector<std::string> words;
@@ -25,5 +32,6 @@ public:
 	void loadWordsFromFile();
 	const std::vector<std::string>& getWords() const {return words;}
 
+	std::string getRandomWord() const;
 
 };

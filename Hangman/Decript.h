@@ -2,7 +2,12 @@
 
 #include <string>
 #include <vector>
+/*
+	Decript
+•	Отвечает за шифрование/дешифрование слов (Single Responsibility).
+•	Методы: encryptWords, decryptWords.
 
+*/
 struct Decript {
 public:
 
