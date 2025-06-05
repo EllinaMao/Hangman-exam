@@ -22,16 +22,16 @@
 #include <iterator>
 #include <fstream>
 #include <string>
-#include <nlohmann/json.hpp>
+//#include <nlohmann/json.hpp>
 using namespace std;
 
-using json = nlohmann::json;
+//using json = nlohmann::json;
 
 void drawHangman(int wrongGuesses) {
     // Base
     vector<string> hangman = {
         "  +---+",
-        "  |   |",
+        "      |",
         "      |",
         "      |",
         "      |",
@@ -39,18 +39,6 @@ void drawHangman(int wrongGuesses) {
         "========="
     };
 
-    // Add parts based on wrongGuesses
-    if (wrongGuesses > 0) hangman[2][2] = 'O';         // Head
-    if (wrongGuesses > 1) hangman[3][2] = '|';         // Body
-    if (wrongGuesses > 2) hangman[3][1] = '/';         // Left arm
-    if (wrongGuesses > 3) hangman[3][3] = '\\';        // Right arm
-    if (wrongGuesses > 4) hangman[4][1] = '/';         // Left leg
-    if (wrongGuesses > 5) hangman[4][3] = '\\';        // Right leg
-
-    for (auto it = hangman.begin(); it != hangman.end(); ++it) {
-        cout << *it << endl;
-    }
-};
 
 
 int main()
