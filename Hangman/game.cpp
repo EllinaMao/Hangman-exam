@@ -36,28 +36,35 @@ using namespace std;
 
 int main()
 {
-    string encryptedWords = "words.json";
+	try {
+	string encryptedWords = "words.json";
 	WordsList wordsList(encryptedWords);
-	
 	HangmanGame game(wordsList);
+
 	while (true) {
-	game.startGame();
-	while (!game.isGameOver() && !game.isWordGuessed()) {
-		system("pause");
-		system("cls");
-		game.displayHangman();
-		game.displayCurrentState();
-		cout << "Enter a letter: ";
-		char letter = InputIO::GetCh();
-		game.guessLetter(letter);
+		game.startGame();
+		while (!game.isGameOver() && !game.isWordGuessed()) {
+			system("pause");
+			system("cls");
+			game.displayHangman();
+			game.displayCurrentState();
+			cout << "Enter a letter: ";
+			char letter = InputIO::GetCh();
+			game.guessLetter(letter);
+		}
+		game.gameOver();
+		game.displayStatistics();
+		cout << "Do you want to play again? (y/n): ";
+		char choice = InputIO::GetCh();
+		if (choice == 'n' || choice == 'N') {
+			cout << "Thank you for playing!" << endl;
+			break;
+		}
+		game.resetGame(wordsList);
 	}
-	game.gameOver();
-	game.displayStatistics();
-	cout << "Do you want to play again? (y/n): ";
-	char choice = InputIO::GetCh();
-	if (choice == 'n' || choice == 'N') {
-		cout << "Thank you for playing!" << endl;
-		break;
+}
+	catch (const std::exception& e) {
+		cout << "Error loading words: " << e.what() << endl;
+		return 1;
 	}
-	game.resetGame(wordsList);
 }
