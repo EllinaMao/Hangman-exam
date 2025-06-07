@@ -6,12 +6,12 @@ size_t HangmanGame::gameTries = 0;
 
 void HangmanGame::updateHangmanDisplay()
 {	// Add parts based on wrongGuesses
-	if (attemptsLeft > 6) hangman[2][2] = 'O';         // Head
-	else if (attemptsLeft > 5) hangman[3][2] = '|';         // Body
-	else if (attemptsLeft > 4) hangman[3][1] = '/';         // Left arm
-	else if (attemptsLeft > 3) hangman[3][3] = '\\';        // Right arm
-	else if (attemptsLeft > 2) hangman[4][1] = '/';         // Left leg
-	else if (attemptsLeft > 1) hangman[4][3] = '\\';        // Right leg
+	if (attemptsLeft < 6) hangman[2][2] = 'O';         // Head
+	else if (attemptsLeft < 5) hangman[3][2] = '|';         // Body
+	else if (attemptsLeft < 4) hangman[3][1] = '/';         // Left arm
+	else if (attemptsLeft < 3) hangman[3][3] = '\\';        // Right arm
+	else if (attemptsLeft < 2) hangman[4][1] = '/';         // Left leg
+	else if (attemptsLeft < 1) hangman[4][3] = '\\';        // Right leg
 }
 
 void HangmanGame::resetHangmanDisplay()
@@ -51,7 +51,7 @@ void HangmanGame::startGame()
 	gameTries++;
 }
 
-void HangmanGame::gameOver()
+void HangmanGame::gameOver() const
 {
 	if (isWordGuessed()) {
 		cout << "Congratulations! You guessed the word: " << currentWord << endl;
@@ -75,6 +75,7 @@ void HangmanGame::resetGame(WordsList& word)
 	gameTries++;
 }
 
+
 void HangmanGame::guessLetter(char letter)
 {
 	if (guessedLetters.find(letter) != string::npos) {
@@ -84,9 +85,8 @@ void HangmanGame::guessLetter(char letter)
 	guessedLetters += letter;
 	if (currentWord.find(letter) == string::npos) {
 		attemptsLeft--;
-		cout << "Wrong guess! Attempts left: " << attemptsLeft << endl;
+		cout << "Wrong guess! Letter "<< letter <<" doesn`t belong to this word.\nAttempts left : " << attemptsLeft << endl;
 		updateHangmanDisplay();
-		displayHangman();
 	}
 	else {
 		cout << "Good guess!" << endl;
@@ -119,8 +119,29 @@ void HangmanGame::displayStatistics() const
 		<< "Attempts: " << gameTries << endl;
 }
 
+void HangmanGame::OpenTwoLetters()
+{
+	if (currentWord.length() < 2) {
+		cout << "The word is too short to open two letters." << endl;
+		return;
+	}
+	
+	size_t firstOpen = currentWord.find_first_of("aeiou", 0);
+	size_t secondOpen = currentWord.find_first_of("aeiou", firstOpen + 1);
+	if (firstOpen != string::npos) {
+		guessedLetters += currentWord[firstOpen];
+	}
+	if (secondOpen != string::npos) {
+		guessedLetters += currentWord[secondOpen];
+	}
+	cout << "Two letters opened: " << currentWord[firstOpen] << " and " << currentWord[secondOpen] << endl;
+	displayCurrentState();
+}
+
 void HangmanGame::displayHangman()
 {
+	system("pause");
+	system("cls");
 	for (auto it = hangman.begin(); it != hangman.end(); ++it) {
 		cout << *it << endl;
 	}

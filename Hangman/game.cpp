@@ -23,7 +23,7 @@
 #include <fstream>
 #include <string>
 #include <chrono>
-//#include <nlohmann/json.hpp>
+#include <nlohmann/json.hpp>
 #include "Hangman.h"
 #include "WordsList.h"
 #include "Decript.h"
@@ -31,7 +31,7 @@
 
 using namespace std;
 
-//using json = nlohmann::json;
+using json = nlohmann::json;
 
 
 int main()
@@ -40,12 +40,16 @@ int main()
 	string encryptedWords = "words.json";
 	WordsList wordsList(encryptedWords);
 	HangmanGame game(wordsList);
+	char choice;
 
 	while (true) {
 		game.startGame();
+		cout << "You want to open one or two letters? (y/n): " << endl;
+		choice = InputIO::GetCh();
+		if (choice == 'y' || choice == 'Y') {
+			game.OpenTwoLetters();
+		}
 		while (!game.isGameOver() && !game.isWordGuessed()) {
-			system("pause");
-			system("cls");
 			game.displayHangman();
 			game.displayCurrentState();
 			cout << "Enter a letter: ";
@@ -53,15 +57,15 @@ int main()
 			game.guessLetter(letter);
 		}
 		game.gameOver();
-		game.displayStatistics();
 		cout << "Do you want to play again? (y/n): ";
-		char choice = InputIO::GetCh();
+		choice = InputIO::GetCh();
 		if (choice == 'n' || choice == 'N') {
 			cout << "Thank you for playing!" << endl;
 			break;
 		}
 		game.resetGame(wordsList);
 	}
+	return 0;
 }
 	catch (const std::exception& e) {
 		cout << "Error loading words: " << e.what() << endl;

@@ -5,11 +5,10 @@
 #include <fstream>
 #include <string>
 #include <random>
-//#include <nlohmann/json.hpp>
+#include <nlohmann/json.hpp>
 #include "Decript.h"
 
-//using json = nlohmann::json;
-
+using json = nlohmann::json;
 
 /*
 	WordsList
@@ -34,4 +33,4 @@ public:
 
 	std::string getRandomWord() const;
 
-};
+}; 

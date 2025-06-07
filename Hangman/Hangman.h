@@ -21,7 +21,7 @@ private:
 	std::chrono::time_point<std::chrono::steady_clock> startTime;
 
 	static size_t gameTries;
-	vector<string> hangman;
+	std::vector<std::string> hangman;
 
 	void updateHangmanDisplay();
 	void resetHangmanDisplay();
@@ -30,7 +30,7 @@ protected:
 public:
 	explicit HangmanGame(WordsList& word);
 	void startGame();
-	void gameOver();
+	void gameOver()const;
 	void resetGame(WordsList& word);
 	void guessLetter(char letter);
 	bool isGameOver() const;
@@ -40,5 +40,6 @@ public:
 	void displayCurrentState() const;
 	void displayStatistics() const;
 
+	void OpenTwoLetters();
 	void displayHangman();
 };
