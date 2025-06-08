@@ -1,6 +1,7 @@
 ﻿#include "Decript.h"
 using namespace std;
 
+// Function to decrypt a word using Caesar cipher with a given shift
 string Decript::caesarDecrypt(const string& word, int shift)
 {
     string decrypted = word;
@@ -14,6 +15,7 @@ string Decript::caesarDecrypt(const string& word, int shift)
     return decrypted;
 }
 
+// Function to apply decryption to a vector of words
 vector<string> Decript::decryptWords(const vector<string>& words, int shift)
 {
     vector<string> decrypted;

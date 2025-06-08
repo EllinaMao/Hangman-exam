@@ -3,9 +3,9 @@
 #include <string>
 #include <vector>
 /*
-	Decript
-•	Отвечает за шифрование/дешифрование слов (Single Responsibility).
-•	Методы: encryptWords, decryptWords.
+Decript
+is responsible for encryption/decryption of words.
+
 
 */
 struct Decript {
