@@ -44,7 +44,7 @@ int main()
         while (true) {
             game.startGame();
 
-            // Menu for opening two letters
+             //Menu for opening two letters
             vector<string> openOptions = { "Don't open letters", "Open two letters" };
             int openChoice = showMenu(openOptions, "Do you want to open two letters?");
             if (openChoice == 1) {
@@ -60,7 +60,7 @@ int main()
             }
             game.gameOver();
 
-            // Menu for playing again
+             //Menu for playing again
             vector<string> playAgainOptions = { "Play again", "Exit" };
             int playAgainChoice = showMenu(playAgainOptions, "Do you want to play again?");
             if (playAgainChoice == 1) {
