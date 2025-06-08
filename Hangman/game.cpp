@@ -28,47 +28,51 @@
 #include "WordsList.h"
 #include "Decript.h"
 #include "InputIO.h"
+#include "Menu.h"
 
 using namespace std;
 
 using json = nlohmann::json;
 
-
 int main()
 {
-	try {
-	string encryptedWords = "words.json";
-	WordsList wordsList(encryptedWords);
-	HangmanGame game(wordsList);
-	char choice;
+    try {
+        string encryptedWords = "words.json";
+        WordsList wordsList(encryptedWords);
+        HangmanGame game(wordsList);
 
-	while (true) {
-		game.startGame();
-		cout << "You want to open one or two letters? (y/n): " << endl;
-		choice = InputIO::GetCh();
-		if (choice == 'y' || choice == 'Y') {
-			game.OpenTwoLetters();
-		}
-		while (!game.isGameOver() && !game.isWordGuessed()) {
-			game.displayHangman();
-			game.displayCurrentState();
-			cout << "Enter a letter: ";
-			char letter = InputIO::GetCh();
-			game.guessLetter(letter);
-		}
-		game.gameOver();
-		cout << "Do you want to play again? (y/n): ";
-		choice = InputIO::GetCh();
-		if (choice == 'n' || choice == 'N') {
-			cout << "Thank you for playing!" << endl;
-			break;
-		}
-		game.resetGame(wordsList);
-	}
-	return 0;
-}
-	catch (const std::exception& e) {
-		cout << "Error loading words: " << e.what() << endl;
-		return 1;
-	}
+        while (true) {
+            game.startGame();
+
+            // Menu for opening two letters
+            vector<string> openOptions = { "Don't open letters", "Open two letters" };
+            int openChoice = showMenu(openOptions, "Do you want to open two letters?");
+            if (openChoice == 1) {
+                game.OpenTwoLetters();
+            }
+
+            while (!game.isGameOver() && !game.isWordGuessed()) {
+                game.displayHangman();
+                game.displayCurrentState();
+                cout << "Enter a letter: ";
+                char letter = InputIO::GetCh();
+                game.guessLetter(letter);
+            }
+            game.gameOver();
+
+            // Menu for playing again
+            vector<string> playAgainOptions = { "Play again", "Exit" };
+            int playAgainChoice = showMenu(playAgainOptions, "Do you want to play again?");
+            if (playAgainChoice == 1) {
+                cout << "Thank you for playing!" << endl;
+                break;
+            }
+            game.resetGame(wordsList);
+        }
+        return 0;
+    }
+    catch (const std::exception& e) {
+        cout << "Error loading words: " << e.what() << endl;
+        return 1;
+    }
 }
