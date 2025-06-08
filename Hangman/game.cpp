@@ -25,7 +25,6 @@
 #include "Hangman.h"
 #include "WordsList.h"
 #include "Decript.h"
-#include "InputIO.h"
 #include "Menu.h"
 
 using namespace std;
