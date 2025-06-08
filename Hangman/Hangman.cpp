@@ -84,6 +84,12 @@ void HangmanGame::resetGame(WordsList& word)
 // Guess a letter and call the display update if necessary
 void HangmanGame::guessLetter(char letter)
 {
+
+	if (letter < 'A' || (letter > 'Z' && letter < 'a') || letter > 'z') {
+		cout << "Please enter a valid English letter." << endl;
+		return;
+	}
+
 	letter = tolower(letter); // Case insensitivity
 	if (!isalpha(letter)) {
 		cout << "Please enter a valid letter." << endl;

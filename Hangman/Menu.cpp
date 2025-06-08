@@ -10,6 +10,7 @@ enum {
     Enter = 13
 };
 
+
 int showMenu(const vector<string>& options, const string& prompt) {
     int selected = 0;
     while (true) {
