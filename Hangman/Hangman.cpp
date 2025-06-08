@@ -6,15 +6,15 @@ size_t HangmanGame::gameTries = 0;
 
 void HangmanGame::updateHangmanDisplay()
 {	// Add parts based on wrongGuesses
-	if (attemptsLeft < 6) hangman[2][2] = 'O';         // Head
-	else if (attemptsLeft < 5) hangman[3][2] = '|';         // Body
-	else if (attemptsLeft < 4) hangman[3][1] = '/';         // Left arm
-	else if (attemptsLeft < 3) hangman[3][3] = '\\';        // Right arm
+	if (attemptsLeft < 1) hangman[4][3] = '\\';        // Right leg
 	else if (attemptsLeft < 2) hangman[4][1] = '/';         // Left leg
-	else if (attemptsLeft < 1) hangman[4][3] = '\\';        // Right leg
+	else if (attemptsLeft < 3) hangman[3][3] = '\\';        // Right arm
+	else if (attemptsLeft < 4) hangman[3][1] = '/';         // Left arm
+	else if (attemptsLeft < 5) hangman[3][2] = '|';         // Body
+	else if (attemptsLeft < 6) hangman[2][2] = 'O';         // Head
 }
 
-void HangmanGame::resetHangmanDisplay()
+void HangmanGame::resetHangmanDisplay()	
 {
 	hangman[2][2] = ' '; // Head
 	hangman[3][2] = ' '; // Body
@@ -117,6 +117,7 @@ void HangmanGame::displayStatistics() const
     auto duration = chrono::duration_cast<chrono::seconds>(endTime - startTime).count();
 	cout << "Game time: " << duration << " seconds." << endl
 		<< "Attempts: " << gameTries << endl;
+	system("pause");
 }
 
 void HangmanGame::OpenTwoLetters()
@@ -140,7 +141,7 @@ void HangmanGame::OpenTwoLetters()
 
 void HangmanGame::displayHangman()
 {
-	system("pause");
+
 	system("cls");
 	for (auto it = hangman.begin(); it != hangman.end(); ++it) {
 		cout << *it << endl;
@@ -160,5 +161,6 @@ void HangmanGame::displayCurrentState() const
 			cout << "_ ";
 		}
 	}
+		cout << "Remaning attemps: " << attemptsLeft << endl;
 	cout << endl;
 }
