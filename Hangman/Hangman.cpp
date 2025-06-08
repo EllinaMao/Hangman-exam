@@ -95,6 +95,7 @@ void HangmanGame::guessLetter(char letter)
 		cout << "Please enter a valid letter." << endl;
 		return;
 	}
+
 	if (guessedLetters.find(letter) != string::npos) {
 		cout << "You already guessed the letter: " << letter << endl;
 		return;
