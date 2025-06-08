@@ -2,6 +2,7 @@
 using namespace std;
 
 
+// Load words from a JSON file
 void WordsList::loadWordsFromFile()
 {
 	ifstream file(filePath);
@@ -18,7 +19,7 @@ void WordsList::loadWordsFromFile()
 	words = Decript::decryptWords(encripred, encrypt);
 }
 
-
+//Get random word from the list to play the game
 std::string WordsList::getRandomWord() const  
 {  
 if (words.empty()) {  
