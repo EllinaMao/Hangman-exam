@@ -8,6 +8,6 @@ public:
    static char GetCh() {  
        char ch;  
        ch = _getch(); 
-       return ch;  
+       return ch; 
    }  
 };
