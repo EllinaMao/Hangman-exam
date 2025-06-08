@@ -7,13 +7,12 @@
 #include <random>
 #include <nlohmann/json.hpp>
 #include "Decript.h"
-
 using json = nlohmann::json;
 
 /*
 	WordsList
-•	Отвечает только за хранение и управление списком слов (Single Responsibility).
-•	Методы: загрузка, добавление, получение случайного слова.
+• is only responsible for storing and managing the list of words 
+• Methods: loading, adding, obtaining a random word.
 */
 class WordsList {
 	private:
