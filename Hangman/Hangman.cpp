@@ -1,5 +1,6 @@
 ﻿#include "Hangman.h"  
 using namespace std;  
+//#define TEST
 
 
 // Initialize the amount of game tries
@@ -84,7 +85,7 @@ void HangmanGame::resetGame(WordsList& word)
 // Guess a letter and call the display update if necessary
 void HangmanGame::guessLetter(char letter)
 {
-
+	
 	if (letter < 'A' || (letter > 'Z' && letter < 'a') || letter > 'z') {
 		cout << "Please enter a valid English letter." << endl;
 		return;
@@ -139,6 +140,7 @@ void HangmanGame::displayStatistics() const
 		<< "Attempts: " << gameTries << endl
 		<< "The word was: " << currentWord << endl;
 	displayGuessedLetters();
+	
 	system("pause");
 }
 
@@ -146,21 +148,27 @@ void HangmanGame::displayStatistics() const
 void HangmanGame::OpenTwoLetters()
 {
 	try {
-	if (currentWord.length() < 2) {
-		cout << "The word is too short to open two letters." << endl;
-		return;
-	}
-	
-	size_t firstOpen = currentWord.find_first_of("aeiou", 0);
-	size_t secondOpen = currentWord.find_first_of("aeiou", firstOpen + 1);
-	if (firstOpen != string::npos) {
-		guessedLetters += currentWord[firstOpen];
-	}
-	if (secondOpen != string::npos) {
-		guessedLetters += currentWord[secondOpen];
-	}
-	cout << "Two letters opened: " << currentWord[firstOpen] << " and " << currentWord[secondOpen] << endl;
-	displayCurrentState();
+		if (currentWord.length() < 2) {
+			cout << "The word is too short to open two letters." << endl;
+			return;
+		}
+
+		// Откроем первую букву
+		char firstChar = currentWord[0];
+		guessedLetters += firstChar;
+
+		// Найдём вторую отличную букву (с конца, если совпадает — ищем следующую отличную)
+		size_t secondIndex = currentWord.length() - 1;
+		while (secondIndex > 0 && currentWord[secondIndex] == firstChar) {
+			--secondIndex;
+		}
+		char secondChar = currentWord[secondIndex];
+		if (guessedLetters.find(secondChar) == std::string::npos) {
+			guessedLetters += secondChar;
+		}
+
+		cout << "Two letters opened: " << firstChar << " and " << secondChar << endl;
+		displayCurrentState();
 	}
 	catch (const std::exception& e) {
 		cout << "An error occurred: " << e.what() << endl;
@@ -175,7 +183,10 @@ void HangmanGame::displayHangman() const
 	for (auto it = hangman.begin(); it != hangman.end(); ++it) {
 		cout << *it << endl;
 	}
-
+#ifdef TEST
+	cout << currentWord << endl;
+	
+#endif
 }
 
 // Display the guessed letters
